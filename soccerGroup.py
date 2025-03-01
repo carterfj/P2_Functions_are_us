@@ -11,6 +11,7 @@ teams = ['Alabama', 'Arizona', 'Arizona State', 'Arkansas', 'Auburn', 'Baylor', 
 
 # store data in dictionary
 seasonData = {
+    'userName': '',
     'homeTeam': '',
     'numGames': 0,
     'games': [],
@@ -38,22 +39,20 @@ def main():
 
     teams[:] = random.sample(teams, seasonData['numGames'])
     for i in range(seasonData['numGames']):
-        playGame(selectTeam('Choose a team to play against: '))
+        playGame(seasonData['homeTeam'], selectTeam('Choose a team to play against: '))
     displayRecord()
 
 # intro function to display welcome message and prompt for user input
 def intro():
-    getHomeTeam()
-    getNumGames()
-    # 1. Keep the above two lines. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
+    # 1. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
     print ("Welcome to the College Soccer Lookup!")
     print("You will select a team, play against random opponents, and track your wins and losses.")
     print ( "Let's get started.")
 
-    user_name = input("what is your name?")
-    print (f" Awesome {user_name} lets pick what you want to do!")
-
-    return user_name
+    seasonData['userName'] = input("what is your name? ")
+    print (f"Awesome {seasonData['userName']} lets pick what you want to do!")
+    getHomeTeam()
+    getNumGames()
 
 
 
@@ -98,17 +97,19 @@ def getNumGames():
 # Describe function here.
 # 4.Play the game receiving both team names. Generate random scores without ties. Return W or L. 
 def playGame(homeTeam, awayTeam):
-    homeScore = random.randint(0,50)
-    awayScore = random.randint(0,50)
+    homeScore = random.randint(0,10)
+    awayScore = random.randint(0,10)
     while homeScore == awayScore:
-        awayScore = random.randint(0,50)
+        awayScore = random.randint(0,10)
         
     print(f'\n{homeTeam} : {homeScore} vs {awayTeam} : {awayScore}')
 
     if homeScore > awayScore:
+        seasonData['totalWins'] += 1
         print(f'{homeTeam} wins!')
         return 'W'
     else:
+        seasonData['totalLosses'] += 1
         print(f'{awayTeam} wins!')
         return 'L'
     
