@@ -62,10 +62,23 @@ def getNumGames():
         seasonData['numGames'] = numGames
 
 # Describe function here.
-def playGame(awayTeam):
-    print('Play game.')
-    # 4. Remove the above line. Play the game receiving both team names. Generate random scores without ties. Return W or L. 
+# 4.Play the game receiving both team names. Generate random scores without ties. Return W or L. 
+def playGame(homeTeam, awayTeam):
+    homeScore = random.randint(0,50)
+    awayScore = random.randint(0,50)
+    while homeScore == awayScore:
+        awayScore = random.randint(0,50)
+        
+    print(f'\n{homeTeam} : {homeScore} vs {awayTeam} : {awayScore}')
 
+    if homeScore > awayScore:
+        print(f'{homeTeam} wins!')
+        return 'W'
+    else:
+        print(f'{awayTeam} wins!')
+        return 'L'
+    
+    
 # Describe function here.
 def displayRecord():
     print('Display record.')
