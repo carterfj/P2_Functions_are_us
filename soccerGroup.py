@@ -22,25 +22,19 @@ seasonData = {
 # main function to call other functions
 def main():
     intro()
+    teams[:] = random.sample(teams, seasonData['numGames'])
 
-    # This outputs the correct information according to the users input from the menu
-    while True:
+    inputChoice = '0'
+    while (inputChoice != '4'):
         inputChoice = menu()
         if inputChoice == '1':
-            break
+            playGame(seasonData['homeTeam'], selectTeam('Choose a team to play against: '))
         elif inputChoice == '2':
             print("You will select a team, play against random opponents, and track your wins and losses.")
-            continue
         elif inputChoice == '3':
             displayRecord()
         else:
             print('Thanks for playing!')
-            exit()
-
-    teams[:] = random.sample(teams, seasonData['numGames'])
-    for i in range(seasonData['numGames']):
-        playGame(seasonData['homeTeam'], selectTeam('Choose a team to play against: '))
-    displayRecord()
 
 # intro function to display welcome message and prompt for user input
 def intro():
@@ -54,15 +48,12 @@ def intro():
     getHomeTeam()
     getNumGames()
 
-
-
-
 # Describe function here
 def menu():
     print('Menu: ')
     print('1. Play Game')
     print('2. Read instructions')
-    print('3. View final record')
+    print('3. View record')
     print('4. Exit Game')
     # This is the input from the user to choose an option
     userChoice = input('Enter a choice (1-4): ')
@@ -79,7 +70,6 @@ def selectTeam(message = 'Select a team from the list above: '):
     else: 
         print('\nInvalid option. Please select a team from the list below\n')
         return selectTeam()
-
 
 # prompt user for a home team and store in dictionary
 def getHomeTeam():
