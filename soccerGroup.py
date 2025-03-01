@@ -21,6 +21,20 @@ seasonData = {
 # main function to call other functions
 def main():
     intro()
+    
+    # This outputs the correct information according to the users input from the menu
+    while True:
+        inputChoice = menu()
+        if inputChoice == '1':
+            break
+        elif inputChoice == '2':
+            intro()
+        elif inputChoice == '3':
+            displayRecord()
+        else:
+            print('Thanks for playing!')
+            exit()
+
     teams[:] = random.sample(teams, seasonData['numGames'])
     for i in range(seasonData['numGames']):
         playGame(selectTeam('Choose a team to play against: '))
@@ -32,8 +46,17 @@ def intro():
     getNumGames()
     # 1. Keep the above two lines. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
 
-# Describe function here
-# def menu():
+# displays the options that the user can enter to view different parts of the game
+def menu():
+    print('Menu: ')
+    print('1. Play Game')
+    print('2. Read instructions')
+    print('3. View final record')
+    print('4. Exit Game')
+    # This is the input from the user to choose an option
+    userChoice = input('Enter a choice (1-4): ')
+    return userChoice
+
 # 2. Display of menu and return choice. Store in variable and use this value to determine which function to call next.
 
 # Prompt user to select a team from the list of teams and remove the team from the list
