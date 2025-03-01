@@ -31,6 +31,17 @@ def intro():
     getHomeTeam()
     getNumGames()
     # 1. Keep the above two lines. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
+    print ("Welcome to the College Soccer Lookup!")
+    print("You will select a team, play against random opponents, and track your wins and losses.")
+    print ( "Let's get started.")
+
+    user_name = input("what is your name?")
+    print (f" Awesome {user_name} lets pick what you want to do!")
+
+    return user_name
+
+
+
 
 # Describe function here
 # def menu():
