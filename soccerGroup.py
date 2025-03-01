@@ -21,14 +21,15 @@ seasonData = {
 # main function to call other functions
 def main():
     intro()
-    
+
     # This outputs the correct information according to the users input from the menu
     while True:
         inputChoice = menu()
         if inputChoice == '1':
             break
         elif inputChoice == '2':
-            intro()
+            print("You will select a team, play against random opponents, and track your wins and losses.")
+            continue
         elif inputChoice == '3':
             displayRecord()
         else:
@@ -45,8 +46,19 @@ def intro():
     getHomeTeam()
     getNumGames()
     # 1. Keep the above two lines. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
+    print ("Welcome to the College Soccer Lookup!")
+    print("You will select a team, play against random opponents, and track your wins and losses.")
+    print ( "Let's get started.")
 
-# displays the options that the user can enter to view different parts of the game
+    user_name = input("what is your name?")
+    print (f" Awesome {user_name} lets pick what you want to do!")
+
+    return user_name
+
+
+
+
+# Describe function here
 def menu():
     print('Menu: ')
     print('1. Play Game')
@@ -56,7 +68,6 @@ def menu():
     # This is the input from the user to choose an option
     userChoice = input('Enter a choice (1-4): ')
     return userChoice
-
 # 2. Display of menu and return choice. Store in variable and use this value to determine which function to call next.
 
 # Prompt user to select a team from the list of teams and remove the team from the list
@@ -85,10 +96,23 @@ def getNumGames():
         seasonData['numGames'] = numGames
 
 # Describe function here.
-def playGame(awayTeam):
-    print('Play game.')
-    # 4. Remove the above line. Play the game receiving both team names. Generate random scores without ties. Return W or L. 
+# 4.Play the game receiving both team names. Generate random scores without ties. Return W or L. 
+def playGame(homeTeam, awayTeam):
+    homeScore = random.randint(0,50)
+    awayScore = random.randint(0,50)
+    while homeScore == awayScore:
+        awayScore = random.randint(0,50)
+        
+    print(f'\n{homeTeam} : {homeScore} vs {awayTeam} : {awayScore}')
 
+    if homeScore > awayScore:
+        print(f'{homeTeam} wins!')
+        return 'W'
+    else:
+        print(f'{awayTeam} wins!')
+        return 'L'
+    
+    
 # Describe function here.
 def displayRecord():
     print('Display record.')
