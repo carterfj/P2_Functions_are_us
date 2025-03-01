@@ -106,8 +106,24 @@ def playGame(homeTeam, awayTeam):
     
 # Describe function here.
 def displayRecord():
-    print('Display record.')
-    # 5. Remove the above line. Display the final record for a team. Receive the home team data and display information.
+    home_team = seasonData['homeTeam']
+    iWins = seasonData['totalWins']
+    iLosses = seasonData['totalLosses']
+    
+    print(f"\nFinal Season Record for {home_team}: ")
+    print(f"Wins: {iWins} | Losses: {iLosses}")
+    
+    # Calculate for win rate
+    iTotalGameCnt = iWins + iLosses
+    fWinRate = iWins / iTotalGameCnt
+    
+    if fWinRate >= 0.75:
+        print("Qualified for the NCAA Women's Soccer Tournament")
+    elif fWinRate >= 0.5:
+        print("You had a good season")
+    else:
+        print("Your team needs to practice!")
+    # 5. Display the final record for a team. Receive the home team data and display information.
 
 # call main function to simulate a season
 main()
