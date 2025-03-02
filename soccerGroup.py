@@ -6,29 +6,27 @@
 # import random module
 import random
 
-# list of all teams
-teams = ['Alabama', 'Arizona', 'Arizona State', 'Arkansas', 'Auburn', 'Baylor', 'Boston College', 'BYU', 'California', 'Clemson', 'Colorado', 'Connecticut', 'Duke', 'Florida', 'Florida State', 'Georgia', 'Georgia Tech', 'Illinois', 'Indiana', 'Iowa', 'Iowa State', 'Kansas', 'Kansas State', 'Kentucky', 'Louisville', 'LSU', 'Maryland', 'Miami', 'Michigan', 'Michigan State', 'Minnesota', 'Mississippi State', 'Missouri', 'Nebraska', 'North Carolina', 'North Carolina State', 'Northwestern', 'Notre Dame', 'Ohio State', 'Oklahoma', 'Oklahoma State', 'Oregon', 'Oregon State', 'Penn State', 'Pittsburgh', 'Purdue', 'Rutgers', 'South Carolina', 'Stanford', 'Syracuse', 'Tennessee', 'Texas', 'Texas A&M', 'Texas Tech', 'UCLA', 'USC', 'Utah', 'Vanderbilt', 'Virginia', 'Virginia Tech', 'Wake Forest', 'Washington', 'Washington State', 'West Virginia', 'Wisconsin', 'Wyoming']
-
-# store data in dictionary
-seasonData = {
-    'userName': '',
-    'homeTeam': '',
-    'numGames': 0,
-    'games': [],
-    'totalWins': 0,
-    'totalLosses': 0
-}
+# store season data in dictionary
+seasonData = {}
 
 # main function to call other functions
 def main():
+    # initialize game
+    reset()
     intro()
     teams[:] = random.sample(teams, seasonData['numGames'])
-
     inputChoice = '0'
+
+    # loop through menu options until user exits
     while (inputChoice != '4'):
         inputChoice = menu()
         if inputChoice == '1':
-            playGame(seasonData['homeTeam'], selectTeam('Choose a team to play against: '))
+            if (len(teams) > 0):
+                playGame(seasonData['homeTeam'], selectTeam('Choose a team to play against: '))
+            else:
+                reset()
+                intro()
+                teams[:] = random.sample(teams, seasonData['numGames'])
         elif inputChoice == '2':
             print("You will select a team, play against random opponents, and track your wins and losses.")
         elif inputChoice == '3':
@@ -36,9 +34,22 @@ def main():
         else:
             print('Thanks for playing!')
 
-# intro function to display welcome message and prompt for user input
+# function to reset the game
+def reset():
+    # set season data to default values
+    seasonData.update({
+    'userName': '',
+    'homeTeam': '',
+    'numGames': 0,
+    'totalWins': 0,
+    'totalLosses': 0
+    })
+    # list of all teams
+    global teams
+    teams = ['Alabama', 'Arizona', 'Arizona State', 'Arkansas', 'Auburn', 'Baylor', 'Boston College', 'BYU', 'California', 'Clemson', 'Colorado', 'Connecticut', 'Duke', 'Florida', 'Florida State', 'Georgia', 'Georgia Tech', 'Illinois', 'Indiana', 'Iowa', 'Iowa State', 'Kansas', 'Kansas State', 'Kentucky', 'Louisville', 'LSU', 'Maryland', 'Miami', 'Michigan', 'Michigan State', 'Minnesota', 'Mississippi State', 'Missouri', 'Nebraska', 'North Carolina', 'North Carolina State', 'Northwestern', 'Notre Dame', 'Ohio State', 'Oklahoma', 'Oklahoma State', 'Oregon', 'Oregon State', 'Penn State', 'Pittsburgh', 'Purdue', 'Rutgers', 'South Carolina', 'Stanford', 'Syracuse', 'Tennessee', 'Texas', 'Texas A&M', 'Texas Tech', 'UCLA', 'USC', 'Utah', 'Vanderbilt', 'Virginia', 'Virginia Tech', 'Wake Forest', 'Washington', 'Washington State', 'West Virginia', 'Wisconsin', 'Wyoming']
+
+# 1. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
 def intro():
-    # 1. Display an introduction to the game explaining rules and prompt for their name and display that in the welcome message. Return the name to the main program and store it in variable so it can be used throughout the program.
     print ("Welcome to the College Soccer Lookup!")
     print("You will select a team, play against random opponents, and track your wins and losses.")
     print ( "Let's get started.")
@@ -48,19 +59,21 @@ def intro():
     getHomeTeam()
     getNumGames()
 
-# Describe function here
+# 2. Display of menu and return choice. Store in variable and use this value to determine which function to call next.
 def menu():
-    print('Menu: ')
-    print('1. Play Game')
+    if (len(teams) > 0):
+        print('Menu:\n1. Play Game')
+    else:
+        displayRecord()
+        print('Menu:\n1. Start a new season')
     print('2. Read instructions')
     print('3. View record')
     print('4. Exit Game')
     # This is the input from the user to choose an option
     userChoice = input('Enter a choice (1-4): ')
     return userChoice
-# 2. Display of menu and return choice. Store in variable and use this value to determine which function to call next.
 
-# Prompt user to select a team from the list of teams and remove the team from the list
+# 3. Prompt user to select a team from the list of teams and remove the team from the list
 def selectTeam(message = 'Select a team from the list above: '):
     print(teams)
     selection = input(message)
@@ -84,8 +97,7 @@ def getNumGames():
     else:
         seasonData['numGames'] = numGames
 
-# Describe function here.
-# 4.Play the game receiving both team names. Generate random scores without ties. Return W or L. 
+# 4. Play the game receiving both team names. Generate random scores without ties. Return W or L. 
 def playGame(homeTeam, awayTeam):
     homeScore = random.randint(0,10)
     awayScore = random.randint(0,10)
@@ -103,8 +115,7 @@ def playGame(homeTeam, awayTeam):
         print(f'{awayTeam} wins!')
         return 'L'
     
-    
-# Describe function here.
+# 5. Display the final record for a team. Receive the home team data and display information.
 def displayRecord():
     home_team = seasonData['homeTeam']
     iWins = seasonData['totalWins']
@@ -124,7 +135,6 @@ def displayRecord():
             print("You had a good season")
         else:
             print("Your team needs to practice!")
-    # 5. Display the final record for a team. Receive the home team data and display information.
 
 # call main function to simulate a season
 main()
